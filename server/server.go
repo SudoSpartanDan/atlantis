@@ -482,11 +482,12 @@ func NewServer(userConfig UserConfig, config Config) (*Server, error) {
 		AzureDevopsToken:   userConfig.AzureDevopsToken,
 	}
 	commentParser := &events.CommentParser{
-		GithubUser:      userConfig.GithubUser,
-		GitlabUser:      userConfig.GitlabUser,
-		BitbucketUser:   userConfig.BitbucketUser,
-		AzureDevopsUser: userConfig.AzureDevopsUser,
-		ApplyDisabled:   userConfig.DisableApply,
+		GithubUser:         userConfig.GithubUser,
+		GitlabUser:         userConfig.GitlabUser,
+		BitbucketUser:      userConfig.BitbucketUser,
+		AzureDevopsUser:    userConfig.AzureDevopsUser,
+		ApplyDisabled:      userConfig.DisableApply,
+		AtlantisExecutable: userConfig.WakeWord,
 	}
 	defaultTfVersion := terraformClient.DefaultVersion()
 	pendingPlanFinder := &events.DefaultPendingPlanFinder{}

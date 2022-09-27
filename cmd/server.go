@@ -114,6 +114,7 @@ const (
 	TFEHostnameFlag            = "tfe-hostname"
 	TFELocalExecutionModeFlag  = "tfe-local-execution-mode"
 	TFETokenFlag               = "tfe-token"
+	WakeWordFlag               = "wake-word"
 	WriteGitCredsFlag          = "write-git-creds"
 	WebBasicAuthFlag           = "web-basic-auth"
 	WebUsernameFlag            = "web-username"
@@ -140,6 +141,7 @@ const (
 	DefaultTFDownloadURL           = "https://releases.hashicorp.com"
 	DefaultTFEHostname             = "app.terraform.io"
 	DefaultVCSStatusName           = "atlantis"
+	DefaultWakeWord                = "atlantis"
 	DefaultWebBasicAuth            = false
 	DefaultWebUsername             = "atlantis"
 	DefaultWebPassword             = "atlantis"
@@ -341,6 +343,10 @@ var stringFlags = map[string]stringFlag{
 	VCSStatusName: {
 		description:  "Name used to identify Atlantis for pull request statuses.",
 		defaultValue: DefaultVCSStatusName,
+	},
+	WakeWordFlag: {
+		description:  "Word used to interact with Atlantis in a pull request.",
+		defaultValue: DefaultWakeWord,
 	},
 	WebUsernameFlag: {
 		description:  "Username used for Web Basic Authentication on Atlantis HTTP Middleware",
@@ -730,6 +736,9 @@ func (s *ServerCmd) setDefaults(c *server.UserConfig) {
 	}
 	if c.TFEHostname == "" {
 		c.TFEHostname = DefaultTFEHostname
+	}
+	if c.WakeWord == "" {
+		c.WakeWord = DefaultWakeWord
 	}
 	if c.WebUsername == "" {
 		c.WebUsername = DefaultWebUsername

@@ -25,8 +25,9 @@ import (
 )
 
 var commentParser = events.CommentParser{
-	GithubUser: "github-user",
-	GitlabUser: "gitlab-user",
+	GithubUser:         "github-user",
+	GitlabUser:         "gitlab-user",
+	AtlantisExecutable: "atlantis",
 }
 
 func TestParse_Ignored(t *testing.T) {
@@ -821,6 +822,26 @@ func TestParse_VCSUsername(t *testing.T) {
 			r := cp.Parse(fmt.Sprintf("@%s %s", c.user, "help"), c.vcs)
 			Equals(t, commentParser.HelpComment(false), r.CommentResponse)
 		})
+	}
+}
+
+func TestParse_AtlantisExecutable(t *testing.T) {
+	cp := events.CommentParser{
+		GithubUser:         "gh",
+		AtlantisExecutable: "customwakeword",
+	}
+	helpComments := []string{
+		"run",
+		"customwakeword",
+		"customwakeword help",
+		"customwakeword --help",
+		"customwakeword -h",
+		"customwakeword help something else",
+		"customwakeword help plan",
+	}
+	for _, c := range helpComments {
+		r := cp.Parse(c, models.Github)
+		Equals(t, commentParser.HelpComment(false), r.CommentResponse)
 	}
 }
 

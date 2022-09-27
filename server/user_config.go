@@ -98,6 +98,7 @@ type UserConfig struct {
 	VarFileAllowlist       string          `mapstructure:"var-file-allowlist"`
 	VCSStatusName          string          `mapstructure:"vcs-status-name"`
 	DefaultTFVersion       string          `mapstructure:"default-tf-version"`
+	WakeWord               string          `mapstructure:"wake-word"`
 	Webhooks               []WebhookConfig `mapstructure:"webhooks"`
 	WebBasicAuth           bool            `mapstructure:"web-basic-auth"`
 	WebUsername            string          `mapstructure:"web-username"`
